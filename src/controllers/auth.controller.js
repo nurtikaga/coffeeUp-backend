@@ -74,8 +74,6 @@ async function register(req, res) {
   const client = await db.connect();
   const { email, password, phone_number } = req.body;
   const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-  const regexPhone =
-    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
 
   if (email == undefined || !email.match(regexEmail))
     return res.status(422).json({ msg: "Invalid email input" });
@@ -83,7 +81,7 @@ async function register(req, res) {
     return res
       .status(422)
       .json({ msg: "Password must be atleast have 7 characters" });
-  if (phone_number == undefined || !phone_number.match(regexPhone))
+  if (phone_number == undefined)
     return res.status(422).json({ msg: "Invalid phone numbers" });
 
   try {
@@ -192,7 +190,7 @@ async function requestResetPass(req, res) {
     console.log(url);
     sendForgotPass({
       to: email,
-      url: `https://jokopi-react.vercel.app/${url}`,
+      url: `https://coffeeup-react.vercel.app/${url}`,
     });
     res.status(201).json({
       msg: "Link reset password created! Expired in 10 minutes",

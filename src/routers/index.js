@@ -33,7 +33,7 @@ routers.use("/apiv1/adminPanel", adminRouter);
 routers.get("/", (req, res) => {
   res.status(200).json({
     status: 200,
-    msg: "Welcome to Rest API jokopi app!",
+    msg: "Welcome to Rest API coffeeup app!",
     contributors: [
       {
         alias: "nyannss",

@@ -23,7 +23,7 @@ const uploader = async (req, prefix, suffix) => {
     // upload ke cloudinary
     const result = await cloudinary.uploader.upload(datauri.content, {
       public_id: filename,
-      folder: "jokopi",
+      folder: "coffeeup",
     });
     return { data: result, msg: "OK" };
   } catch (err) {

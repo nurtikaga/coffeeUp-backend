@@ -1,7 +1,7 @@
 {
-  "name": "jokopi",
+  "name": "coffeeup",
   "version": "1.0.0",
-  "description": "Backend for jokopi website",
+  "description": "Backend for coffeeup website",
   "main": "index.js",
   "type": "module",
   "engines": {
@@ -11,23 +11,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "app": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/justcallmeahann/jokopi.git"
-  },
   "keywords": [
-    "jokopi",
+    "coffeeup",
     "kopi",
     "kafe",
     "coffee",
     "cafe"
   ],
-  "author": "ahann",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/justcallmeahann/jokopi/issues"
-  },
-  "homepage": "https://github.com/justcallmeahann/jokopi#readme",
+  "author": "coffeeup",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.35.0",

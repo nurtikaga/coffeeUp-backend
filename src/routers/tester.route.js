@@ -35,8 +35,8 @@ testRouter.post("/fcm", async (req, res) => {
 testRouter.post("/email", async (req, res) => {
   try {
     await sendForgotPass({
-      to: "tewaje3539@ratedane.com",
-      url: "https://jokopi.vercel.app",
+      to: "abklogic@gmail.com",
+      url: "https://coffeeup.vercel.app",
     });
 
     res.status(200).json({
