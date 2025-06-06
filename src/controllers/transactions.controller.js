@@ -58,22 +58,33 @@ async function store(req, res) {
     );
     const total = await transactionsModel.grandTotal(client, transactionId);
 
+// ...existing code...
     const deliveryFee = await client.query(
       `SELECT fee FROM deliveries WHERE id = $1`,
       [delivery_id]
     );
+    // Убираем отказ, если способ доставки не найден — подставляем 0
+    let deliveryFeeValue = 0;
+    if (deliveryFee.rows.length > 0) {
+      deliveryFeeValue = Number(deliveryFee.rows[0].fee);
+    }
+
     const paymentFee = await client.query(
       `SELECT fee FROM payments WHERE id = $1`,
       [payment_id]
     );
+    // Убираем отказ, если способ оплаты не найден — подставляем 0
+    let paymentFeeValue = 0;
+    if (paymentFee.rows.length > 0) {
+      paymentFeeValue = Number(paymentFee.rows[0].fee);
+    }
 
     const grandTotal =
       Number(total) +
-      Number(deliveryFee.rows[0].fee) +
-      Number(paymentFee.rows[0].fee);
+      deliveryFeeValue +
+      paymentFeeValue;
 
     await transactionsModel.updateGrandTotal(client, transactionId, grandTotal);
-
     const result_token = await fcmModel.getAdminTokenFcm();
     if (result_token.rows.length > 0) {
       const tokens = result_token.rows.map((obj) => obj.token);
@@ -84,7 +95,6 @@ async function store(req, res) {
         body: "Hey dude! new order received, check it out!",
       });
     }
-    // await client.query("ROLLBACK");
 
     await client.query("COMMIT");
     client.release();
@@ -92,6 +102,9 @@ async function store(req, res) {
       status: 201,
       msg: "Create Transaction Success",
     });
+// ...existing code...
+    // await client.query("ROLLBACK");
+
   } catch (err) {
     console.log(err.message);
     await client.query("ROLLBACK");
